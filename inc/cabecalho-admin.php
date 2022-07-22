@@ -1,4 +1,8 @@
 <?php
+require_once "../vendor/autoload.php";
+
+
+
 $pagina = basename($_SERVER['PHP_SELF']);
 ?>
 <!DOCTYPE html>
@@ -13,7 +17,7 @@ $pagina = basename($_SERVER['PHP_SELF']);
 <link rel="stylesheet" href="../css/style.css">
 
 </head>
-<body id="admin" class="d-flex flex-column h-100 bg-secondary bg-gradient">
+<body id="admin" class="d-flex flex-column h-100 bg-ligth bg-gradient">
     
 <header id="topo" class="border-bottom sticky-top">
 
