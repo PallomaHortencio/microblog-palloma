@@ -30,30 +30,30 @@ final class Usuario {
         return $resultado;
     }
 
-    // fetchAll seleciona todos
-    // fetch seleciona um só 
+    public function inserir (){
+        $sql = "INSERT INTO usuarios(nome, email, senha, tipo)
+        VALUES(:nome, :email, :senha, :tipo)";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+            $consulta->bindParam(":email", $this->email, PDO::PARAM_STR);
+            $consulta->bindParam(":senha", $this->senha, PDO::PARAM_STR);
+            $consulta->bindParam(":tipo", $this->tipo, PDO::PARAM_STR);
+            $consulta->execute();
+
+        } catch (Exception $erro) {
+            die("Erro: ". $erro->getMessage());
+        }
+       
+        }
 
 
+    /* função de codificar a senha */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public function codificaSenha(string $senha):string {
+        return password_hash($senha, PASSWORD_DEFAULT);
+    }
 
 
 
@@ -65,7 +65,7 @@ final class Usuario {
 
     public function setId(int $id): self
     {
-        $this->id = $id;
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
         return $this;
     }
@@ -79,7 +79,7 @@ final class Usuario {
 
     public function setNome(string $nome): self
     {
-        $this->nome = $nome;
+        $this->nome = filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS);
 
         return $this;
     }
@@ -93,7 +93,7 @@ final class Usuario {
  
     public function setEmail(string $email): self
     {
-        $this->email = $email;
+        $this->email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
         return $this;
     }
@@ -107,7 +107,7 @@ final class Usuario {
 
     public function setSenha(string $senha): self
     {
-        $this->senha = $senha;
+        $this->senha = filter_var($senha, FILTER_SANITIZE_SPECIAL_CHARS);
 
         return $this;
     }
@@ -121,7 +121,7 @@ final class Usuario {
 
     public function setTipo(string $tipo): self
     {
-        $this->tipo = $tipo;
+        $this->tipo = filter_var($tipo, FILTER_SANITIZE_SPECIAL_CHARS);
 
         return $this;
     }
@@ -139,4 +139,10 @@ final class Usuario {
 
         return $this;
     }
-}
+
+    }
+
+
+    // fetchAll seleciona todos
+    // fetch seleciona um só 
+    ?>
