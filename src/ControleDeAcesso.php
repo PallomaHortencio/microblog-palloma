@@ -22,4 +22,12 @@ final class ControleDeAcesso{
             die(); // tambem pode se encontrar como exit;
         }
     }
+
+
+    public function login(int $id, string $nome, string $tipo ):void {
+        /* No momento em que ocorrer o login, adcionamos a sessão variáveis de sessão contendo os dados necessários para o sistema */
+        $_SESSION['id'] = $id;
+        $_SESSION['nome'] = $nome;
+        $_SESSION['tipo'] = $tipo;
+    }
 }

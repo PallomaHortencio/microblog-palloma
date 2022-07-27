@@ -119,6 +119,23 @@ final class Usuario {
     }
 
 
+    public function buscar(){
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+
+        try{
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":email", $this->email, PDO::PARAM_STR);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        } catch (Exception $erro) {
+            die("Erro: ".$erro->getMessage());
+
+        }
+        return $resultado;
+    }
+    
+
     public function getId(): int
     {
         return $this->id;
