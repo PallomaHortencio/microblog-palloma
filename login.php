@@ -1,5 +1,6 @@
 <?php
 
+use Microblog\ControleDeAcesso;
 use Microblog\Usuario;
 use Microblog\Utilitarios;
 
@@ -10,8 +11,10 @@ if( isset($_GET['acesso_proibido'])){
 	$feedback = '"Você deve logar primeiro! <i class="bi bi-emoji-frown"></i>"';
 } elseif( isset($_GET['campos_obrigatorios'])){
 	$feedback = 'Você deve preencher todos os campos! <i class="bi bi-emoji-neutral"></i>';
-} elseif( isset($_GET['nao_encontrado'])){
-	$feedback = 'Usuário não encontrado!';
+} elseif( isset($_GET['senha_incorreta'])){
+	$feedback = 'Senha incorreta';
+} elseif( isset($_GET['logout'])){
+	$feedback = 'Você saiu do sistema!';
 }
 
 ?>
@@ -57,16 +60,19 @@ if( isset($_GET['acesso_proibido'])){
 					//Utilitarios::dump($dados);
 
 					// se dados for falso (ou seja, não tem dados de nenhum usuario cadastrado)
-					// ou if(!$dados)
-					if($dados === false) { 
+					if(!$dados) { 
 						// então fica no login e da um feedback
 						header("location:login.php?nao_encontrado");
 					} else {
 						/* verificação da senha e login */
 						if(password_verify($_POST['senha'], $dados['senha'])){
-							echo "Pode entrar!";
+							// estando certa, sera feito o login
+							$sessao = new ControleDeAcesso;
+							$sessao->login($dados['id'], $dados['nome'], $dados['tipo']);
+							header("location:admin/index.php");
 						} else {
-							echo "Vaza fi";
+							// caso contraio, mantenha na pagina login e apresente uma mensagem
+							header("location:login.php?senha_incorreta");
 						}
 					}
 				}
@@ -75,7 +81,7 @@ if( isset($_GET['acesso_proibido'])){
     </div>
     
     
-</div>        
+</div>
         
         
     

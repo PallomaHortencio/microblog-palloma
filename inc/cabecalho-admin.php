@@ -11,6 +11,8 @@ $sessao = new ControleDeAcesso;
 // executamos verificaAcesso para checar se tem alguem logado
 $sessao->verificaAcesso();
 
+// Se o parâmetro ?sair existir, então faça o logout
+if(isset($_GET['sair'])) $sessao->logout();
 
 
 $pagina = basename($_SERVER['PHP_SELF']);
@@ -61,7 +63,7 @@ $pagina = basename($_SERVER['PHP_SELF']);
                 <a class="nav-link" href="../index.php" target="_blank">Área pública</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold" href=""> <i class="bi bi-x-circle"></i> Sair</a>
+                <a class="nav-link fw-bold" href="?sair"> <i class="bi bi-x-circle"></i> Sair</a>
             </li>
         </ul>
 
