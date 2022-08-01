@@ -2,7 +2,6 @@
 
 use Microblog\ControleDeAcesso;
 use Microblog\Usuario;
-use Microblog\Utilitarios;
 
 require_once "inc/cabecalho.php";
 
@@ -11,11 +10,13 @@ if( isset($_GET['acesso_proibido'])){
 	$feedback = '"Você deve logar primeiro! <i class="bi bi-emoji-frown"></i>"';
 } elseif( isset($_GET['campos_obrigatorios'])){
 	$feedback = 'Você deve preencher todos os campos! <i class="bi bi-emoji-neutral"></i>';
+}  elseif( isset($_GET['nao_encontrado'])){
+	$feedback = 'Não encontrado';
 } elseif( isset($_GET['senha_incorreta'])){
 	$feedback = 'Senha incorreta';
 } elseif( isset($_GET['logout'])){
 	$feedback = 'Você saiu do sistema!';
-}
+} 
 
 ?>
 
