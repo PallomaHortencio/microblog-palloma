@@ -57,4 +57,103 @@ final class Noticia{
 
 
 
+
+ 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+
+    public function setId(int $id): self
+    {
+        $this->id = filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        return $this;
+    }
+
+
+
+    public function getTitulo(): string
+    {
+        return $this->titulo;
+    }
+
+
+    public function setTitulo(string $titulo): self
+    {
+        $this->titulo = filter_var($titulo, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        return $this;
+    }
+
+
+    public function getTexto(): string
+    {
+        return $this->texto;
+    }
+
+
+    public function setTexto(string $texto): self
+    {
+        $this->texto = filter_var($texto, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        return $this;
+    }
+
+
+    public function getResumo(): string
+    {
+        return $this->resumo;
+    }
+
+
+    public function setResumo(string $resumo): self
+    {
+        $this->resumo = filter_var($resumo, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        return $this;
+    }
+
+
+    public function getImagem(): string
+    {
+        return $this->imagem;
+    }
+
+
+    public function setImagem(string $imagem): self
+    {
+        $this->imagem = filter_var($imagem, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        return $this;
+    }
+
+
+    public function getDestaque(): string
+    {
+        return $this->destaque;
+    }
+
+
+    public function setDestaque(string $destaque): self
+    {
+        $this->destaque = filter_var($destaque, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        return $this;
+    }
+
+
+    public function getCategoriaId(): int
+    {
+        return $this->categoriaId;
+    }
+
+
+    public function setCategoriaId(int $categoriaId): self
+    {
+        $this->categoriaId = filter_var($categoriaId, FILTER_SANITIZE_NUMBER_INT);
+
+        return $this;
+    }
 }
