@@ -211,13 +211,6 @@ final class Usuario {
         return $this->conexao;
     }
 
-    public function setConexao(PDO $conexao): self
-    {
-        $this->conexao = $conexao;
-
-        return $this;
-    }
-
     }
 
 
