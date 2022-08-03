@@ -2,7 +2,7 @@
 namespace Microblog;
 use PDO, Exception;
 
-class Categorias{
+ final class Categorias{
     private int $id;
     private string $nome;
     private PDO $conexao;
@@ -14,7 +14,7 @@ class Categorias{
 
 
     public function listar(){
-        $sql = "SELECT nome FROM categorias ORDER BY nome";
+        $sql = "SELECT * FROM categorias ORDER BY nome";
 
         try {
             $consulta = $this->conexao->prepare($sql);
@@ -55,6 +55,34 @@ class Categorias{
         }
 
 
+        public function atualizar():void {
+            $sql = "UPDATE categorias SET nome = :nome WHERE id = :id";
+
+            try{
+                $consulta = $this->conexao->prepare($sql);
+                $consulta->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+                $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+                $consulta->execute();
+
+            } catch (Exception $erro) {
+                die("Erro: ".$erro->getMessage());
+            }
+        }
+
+
+        public function excluir():void{
+            $sql = "DELETE FROM categorias WHERE id = :id";
+
+            try {
+                $consulta = $this->conexao->prepare($sql);
+                $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+                $consulta->execute();
+            } catch (Exception $erro) {
+                die("Erro: ". $erro->getMessage());
+            }
+        }
+
+
     public function getId(): int
     {
         return $this->id;
@@ -62,7 +90,7 @@ class Categorias{
 
     public function setId(int $id): self
     {
-        $this->id = $id;
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
         return $this;
     }
@@ -75,7 +103,7 @@ class Categorias{
 
     public function setNome(string $nome): self
     {
-        $this->nome = $nome;
+        $this->nome = filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS);
 
         return $this;
     }

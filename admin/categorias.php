@@ -6,8 +6,8 @@ require_once "../inc/cabecalho-admin.php";
 
 $sessao->verificaAcessoAdmin();
 
-$usuario = new Categorias;
-$listaDeCategorias = $usuario->listar();
+$categorias = new Categorias;
+$listaDeCategorias = $categorias->listar();
 ?>
 
 
@@ -35,17 +35,17 @@ $listaDeCategorias = $usuario->listar();
 				</thead>
 
 				<tbody>
- 		<?php foreach($listaDeCategorias as $categorias){ ?>
+ 		<?php foreach($listaDeCategorias as $categoria){ ?>
 					<tr>
-						<td> <?=$categorias['nome']?> </td>
+						<td> <?=$categoria['nome']?> </td>
 						<td class="text-center">
 							<a class="btn btn-warning" 
-							href="categoria-atualiza.php">
+							href="categoria-atualiza.php?id=<?=$categoria['id']?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
 						
 							<a class="btn btn-danger excluir" 
-							href="categoria-exclui.php">
+							href="categoria-exclui.php?id=<?=$categoria['id']?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 						</td>

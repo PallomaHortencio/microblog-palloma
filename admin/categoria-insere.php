@@ -8,10 +8,10 @@ $sessao->verificaAcessoAdmin();
 
 if(isset($_POST['inserir'])){
 
-$usuario = new Categorias;
-$usuario->setNome($_POST['nome']);
+$categorias = new Categorias;
+$categorias->setNome($_POST['nome']);
 
-$usuario->inserir();
+$categorias->inserir();
 header("location:categorias.php");
 }
 
