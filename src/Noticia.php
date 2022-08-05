@@ -33,8 +33,8 @@ final class Noticia{
     }
 
     public function inserir ():void {
-        $sql = "INSERT INTO noticias(titulo, texto, resumo, imagem, destaque, usuarios_id, categorias_id)
-        VALUES (:titulo, :texto, :resumo, :imagem, :destaque, :usuarios_id, :categorias_id)";
+        $sql = "INSERT INTO noticias(titulo, texto, resumo, imagem, destaque, usuario_id, categoria_id)
+        VALUES (:titulo, :texto, :resumo, :imagem, :destaque, :usuario_id, :categoria_id)";
 
         try {
             $consulta = $this->conexao->prepare($sql);
@@ -43,11 +43,11 @@ final class Noticia{
             $consulta->bindParam(":resumo", $this->resumo, PDO::PARAM_STR);
             $consulta->bindParam(":imagem", $this->imagem, PDO::PARAM_STR);
             $consulta->bindParam(":destaque", $this->destaque, PDO::PARAM_STR);
-            $consulta->bindParam(":categorias_id", $this->categoriaId, PDO::PARAM_INT);
+            $consulta->bindParam(":categoria_id", $this->categoriaId, PDO::PARAM_INT);
 
             /* Aqui, primeiro chamamos o getter de ID a partir do objeto/classe de Usuario. E so depois atribuimos ele ao parâmetro :usuarios_id usando para isso o bindValue. 
             OBS: bindParam pode ser usado, mas há riscos de erro devido a forma como ele é executado pelo PHP. Por isso, recomenda-se o uso do bindValue em situações como essa. */
-            $consulta->bindValue(":usuarios_id", $this->usuario->getId(), PDO::PARAM_INT);
+            $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
 
             $consulta->execute();
         } catch (Exception $erro) {
@@ -55,6 +55,43 @@ final class Noticia{
         }
     }
 
+
+    public function upload(array $arquivo) {
+        // Defininco os formatos aceitos
+        $tiposValidos = [
+            "image/png",
+            "image/jpeg",
+            "image/gif",
+            "image/gif",
+            "image/svg+xml"
+        ];
+
+        if( !in_array($arquivo['type'], $tiposValidos)) {
+            die("
+            <script>
+            alert('Formato Inválido!')
+            history.back();
+            </script>
+            ");
+        }
+           /*  } else {
+                die("<script>alert('Formato Válido!');history.back();</script>");
+            } */
+
+            //Acessando apenas o nome do arquivo
+            $nome = $arquivo['name'];
+
+            // Acessando os dados de acesso temporário
+            $temporario = $arquivo['tmp_name'];
+
+            //Definindo a pasta de destino junto com o nome do arquivo
+            $destino = "../imagem/".$nome;
+
+            // Usamos a função abaixo para pegar da area temporaria 
+            // e enviar para a pasta de destino (com o nome do arquivo)
+            move_uploaded_file($temporario, $destino);
+        }
+        
 
 
 
