@@ -38,8 +38,8 @@ $listaDeNoticias = $noticia->listar();
 						<?php if($_SESSION['tipo'] === 'admin') { ?>
                         <th>Autor</th>
 						<?php } ?>
-						<th>Destaque</th>
-						<th class="text-center">Operações</th>
+						<th class="text-center">Destaque</th>
+						<th class="text-center" colspan="2">Operações</th>
 					</tr>
 				</thead>
 
@@ -52,9 +52,20 @@ $listaDeNoticias = $noticia->listar();
                         <td> <?=Utilitarios::formataData($noticia['data'])?> </td>
 
 		<?php if($_SESSION['tipo'] === 'admin') { ?>
+			<td>
 						<!--  ?? operador de Coalescência Nula:
 						Na prática, o valor á esquerda é exibido (desde que ele exista), caso contrário o valor á direita é exibido -->
-                        <td> <?=$noticia['autor'] ?? "<i>Equipe Microblog<i>" ?> </td> 
+
+						<!-- função de limitar caractere quando o nome for muito extenso -->
+						<?php
+						if($noticia['autor']) {
+							echo Utilitarios::limitaCaractere($noticia['autor']);
+						} else {
+							echo "<i>Equipe Microblog</i>";
+						}
+
+						?>
+			</td>    
 		<?php } ?>
 
 						<td> <?=$noticia['destaque']?> </td>
@@ -85,4 +96,3 @@ $listaDeNoticias = $noticia->listar();
 <?php 
 require_once "../inc/rodape-admin.php";
 ?>
-

@@ -120,6 +120,84 @@ final class Noticia{
         } // final do listar
 
 
+        public function listarUm():array {
+            if( $this->usuario->getTipo() === 'admin'){
+                $sql = "SELECT titulo, texto, resumo, imagem, usuario_id, categoria_id, destaque FROM noticias WHERE id = :id";
+            } else {
+                $sql = "SELECT titulo, texto, resumo, imagem, usuario_id, categoria_id, destaque FROM noticias WHERE id = :id AND usuario_id = :usuario_id";
+            }
+
+            try {
+                $consulta = $this->conexao->prepare($sql);
+
+                /* parametro id da noticia (para todos os usuarios) */
+                $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+
+                if ($this->usuario->getTipo() !== 'admin') {
+
+                    /* parametro usuario_id */
+                    $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+
+                }
+                
+                $consulta->execute();
+                $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+            } catch (Exception $erro) {
+                die("Erro: ".$erro->getMessage());
+            }
+            return $resultado;
+        } 
+
+
+        public function atualizar():void {
+            if( $this->usuario->getTipo() === 'admin'){
+                $sql = "UPDATE noticias SET titulo = :titulo, texto = :texto, resumo = :resumo, imagem = :imagem, categoria_id = :categoria_id, destaque = :destaque 
+                WHERE id = :id";
+            } else {
+                $sql = "UPDATE noticias SET titulo = :titulo, texto = :texto, resumo = :resumo, imagem = :imagem, categoria_id = :categoria_id, destaque = :destaque 
+                WHERE id = :id, usuario_id = :usuario_id";
+            }
+
+            try {
+                $consulta = $this->conexao->prepare($sql);
+                $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+                $consulta->bindParam(":titulo", $this->titulo, PDO::PARAM_STR);
+                $consulta->bindParam(":texto", $this->texto, PDO::PARAM_STR);                
+                $consulta->bindParam(":resumo", $this->resumo, PDO::PARAM_STR);
+                $consulta->bindParam(":imagem", $this->imagem, PDO::PARAM_STR);
+                $consulta->bindParam(":categoria_id", $this->categoriaId, PDO::PARAM_INT);
+                $consulta->bindParam(":destaque", $this->destaque, PDO::PARAM_STR);
+
+                /* parametro id da noticia (para todos os usuarios) */
+                $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+
+                if ($this->usuario->getTipo() !== 'admin') {
+
+                    /* parametro usuario_id */
+                    $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+
+                }
+                
+                $consulta->execute();
+            } catch (Exception $erro) {
+                die("Erro: ".$erro->getMessage());
+            }
+        } 
+
+
+        public function excluir():void{
+            $sql = "DELETE FROM noticias WHERE id = :id";
+
+            try {
+                $consulta = $this->conexao->prepare($sql);
+                $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+                $consulta->execute();
+            } catch (Exception $erro) {
+                die("Erro: ". $erro->getMessage());
+            }
+        }
+
+
  
     public function getId(): int
     {
