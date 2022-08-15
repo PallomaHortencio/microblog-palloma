@@ -1,5 +1,10 @@
 <?php
+
+use Microblog\Categorias;
+
 require_once "vendor/autoload.php";
+$categoria = new Categorias;
+$listaDeCategorias = $categoria->listar();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
@@ -35,14 +40,16 @@ require_once "vendor/autoload.php";
             Categorias
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="noticias-por-categoria.php">Ciência</a></li>
-            <li><a class="dropdown-item" href="noticias-por-categoria.php">Educação</a></li>
-            <li><a class="dropdown-item" href="noticias-por-categoria.php">Tecnologia</a></li>
+            <?php foreach($listaDeCategorias as $categoria) { ?>
+            <li><a class="dropdown-item" href="noticias-por-categoria.php?=<?=$categoria['id']?>"><?=$categoria['nome']?></a></li>
+            <?php } ?>
           </ul>
         </li>
+        
         <li class="nav-item">
           <a class="nav-link" href="admin/index.php"><i class="bi bi-lock-fill"></i> Área administrativa</a>
         </li>
+     
       </ul>
 
       <form autocomplete="off" class="d-flex" action="resultados.php" method="POST">

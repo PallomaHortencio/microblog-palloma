@@ -16,4 +16,8 @@ abstract class Utilitarios {
         var_dump($dados);
         echo "</pre>";
     }
+
+    public static function formataTexto(string $texto):string {
+        return nl2br($texto);
+    }
 } 

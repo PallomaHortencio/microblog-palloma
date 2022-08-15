@@ -86,6 +86,7 @@ if( isset($_GET['acesso_proibido'])){
         
         
     
+<?php include_once "inc/todas.php"; ?>
 
 
 
