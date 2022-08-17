@@ -1,10 +1,18 @@
 <?php
+/* Inicializando do Output Buffer
+Gerenciamento da memória de saídas/redirecionamento */
+ob_start();
 
 use Microblog\Categorias;
+use Microblog\Noticia;
 
 require_once "vendor/autoload.php";
+
+$noticia = new Noticia;
 $categoria = new Categorias;
+
 $listaDeCategorias = $categoria->listar();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
@@ -41,7 +49,7 @@ $listaDeCategorias = $categoria->listar();
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php foreach($listaDeCategorias as $categoria) { ?>
-            <li><a class="dropdown-item" href="noticias-por-categoria.php?=<?=$categoria['id']?>"><?=$categoria['nome']?></a></li>
+            <li><a class="dropdown-item" href="noticias-por-categoria.php?id=<?=$categoria['id']?>"><?=$categoria['nome']?></a></li>
             <?php } ?>
           </ul>
         </li>
@@ -52,8 +60,8 @@ $listaDeCategorias = $categoria->listar();
      
       </ul>
 
-      <form autocomplete="off" class="d-flex" action="resultados.php" method="POST">
-        <input class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Pesquise aqui">
+      <form autocomplete="off" class="d-flex" action="resultados.php" method="GET-+">
+        <input name="busca" class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Pesquise aqui">
         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">OK</button>
       </form>
     </div>
@@ -64,5 +72,7 @@ $listaDeCategorias = $categoria->listar();
 
 <main class="flex-shrink-0">
     <div class="container">
+
+
 
     
