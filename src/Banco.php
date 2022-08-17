@@ -9,9 +9,9 @@ abstract class Banco {
     /* Propriedades/atributos
     de acesso ao servidor de Banco de Dados */
     private static string $servidor = "localhost";
-    private static string $usuario = "root";
-    private static string $senha = "";
-    private static string $banco = "microblog_palloma";
+    private static string $usuario = "palloma";
+    private static string $senha = "Palloma2001";
+    private static string $banco = "suniow89_palloma";
     
     /* private static \PDO $conexao; // não precisa do use PDO */
     private static PDO $conexao; // precisa do "use PDO"
