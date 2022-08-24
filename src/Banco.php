@@ -9,7 +9,7 @@ abstract class Banco {
     /* Propriedades/atributos
     de acesso ao servidor de Banco de Dados */
     private static string $servidor = "localhost";
-    private static string $usuario = "palloma";
+    private static string $usuario = "suniow89_palloma";
     private static string $senha = "Palloma2001";
     private static string $banco = "suniow89_palloma";
     

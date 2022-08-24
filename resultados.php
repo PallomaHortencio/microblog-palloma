@@ -26,7 +26,7 @@ $resultados = $noticia->busca();
                     <?=$resultado['resumo']?>
                 </p>
                 
-                <a href="noticia.php?id=<?$resultado['id']?>" class="btn btn-primary btn-sm">Continuar lendo</a>
+                <a href="noticia.php?id=<?=$resultado['id']?>" class="btn btn-primary btn-sm">Continuar lendo</a>
                 
             </div>
         </article>
